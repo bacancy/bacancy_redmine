@@ -1,0 +1,32 @@
+<h3 class="title"><%= "#{@pbi.tracker.name} ##{@pbi.id}" %></h3>
+
+<%- menu_needed = false
+    there_is_last_sprint = (!(@project.last_sprint.nil?))
+    there_is_product_backlog = (!(@project.product_backlog.nil?))
+    render_move_to_last_sprint = (there_is_last_sprint and
+                                  ((@pbi.sprint.is_product_backlog?) or (@pbi.sprint.id != @project.last_sprint.id)))
+    render_move_to_product_backlog = (there_is_product_backlog and (@pbi.sprint.id != @project.product_backlog.id))
+    menu_needed = (render_move_to_last_sprint or render_move_to_product_backlog) -%>
+<%- if menu_needed -%>
+  <div class="modal-issue-menu">
+    <%- if render_move_to_last_sprint -%>
+      <%= link_to(l(:label_move_pbi_to_last_sprint), move_to_last_sprint_path(@pbi),
+                  :remote => true, :method => :post, :class => "icon icon-sprint-board") %>
+    <%- end -%>
+    <%- if render_move_to_product_backlog -%>
+      <%= link_to(l(:label_move_pbi_to_product_backlog), move_to_product_backlog_path(@pbi),
+                  :remote => true, :method => :post, :class => "icon icon-product-backlog") %>
+    <%- end -%>
+  </div>
+<%- end -%>
+
+<div id="messages" />
+
+<%= labelled_form_for @pbi, :url => update_pbi_path(@pbi), :method => :post, :remote => true do |f| %>
+  <%= back_url_hidden_field_tag %>
+  <%= f.hidden_field :tracker_id, :value => @pbi.tracker_id %>
+  <%= f.hidden_field :sprint_id, :value => @pbi.sprint_id %>
+  <%= error_messages_for "pbi" %>
+  <%= render :partial => "scrum/edit_issue_attributes", :formats => [:html],
+             :locals => {:f => f, :issue => @pbi} %>
+<% end %>

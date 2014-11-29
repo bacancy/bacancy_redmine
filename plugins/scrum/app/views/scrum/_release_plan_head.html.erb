@@ -1,0 +1,15 @@
+<table class="box attributes">
+  <tr>
+    <td>
+      <%= l(:label_sps_per_sprint_stat, :count => sprints_count, :sps => sps_per_sprint) %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= l(:label_release_plan_stats,
+            :sps => total_story_points,
+            :pbis => pbis_with_estimation,
+            :pbis_without_sps => pbis_with_estimation) %>
+    </td>
+  </tr>
+</table>

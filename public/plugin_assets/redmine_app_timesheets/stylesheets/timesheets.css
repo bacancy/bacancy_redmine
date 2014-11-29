@@ -1,0 +1,42 @@
+table.ts-display {
+    width: 100%;
+}
+
+.ts-display td {
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+}
+
+.ts-display select {
+    width: 100%;
+}
+
+.ts-display input.hours {
+    width: 80%;
+}
+
+.ts-odd {
+    background-color: rgb(246, 247, 248);
+}
+
+.ts-even {
+    background-color: rgb(255, 255, 255);
+}
+
+.ts-child {
+    background-image: url(../../../images/bullet_arrow_right.png);
+    background-repeat: no-repeat;
+    background-position: 0px;
+    padding-left: 16px !important;
+}
+
+.order-new { padding-bottom: 10px; }
+
+table.list td.buttons span { padding-right: 0.6em }
+
+.icon-group { background-image: url(../../../images/group.png); }
+.icon-none { background-image: url(../../../images/bullet_delete.png); }
+.icon-inspector { background-image: url(../images/inspector.png); }
+.icon-manager { background-image: url(../images/manager.png); }
+.icon-admin { background-image: url(../images/admin.png); }
