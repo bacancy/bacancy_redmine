@@ -47,6 +47,7 @@ class ProjectsController < ApplicationController
 
   # Lists visible projects
   def index
+    #Mailer.test_email(User.find(5)).deliver
     respond_to do |format|
       format.html {
         scope = Project

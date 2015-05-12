@@ -87,11 +87,11 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
   add_index "changeset_parents", ["parent_id"], :name => "changeset_parents_parent_ids"
 
   create_table "changesets", :force => true do |t|
-    t.integer  "repository_id", :null => false
-    t.string   "revision",      :null => false
+    t.integer  "repository_id",                       :null => false
+    t.string   "revision",                            :null => false
     t.string   "committer"
-    t.datetime "committed_on",  :null => false
-    t.text     "comments"
+    t.datetime "committed_on",                        :null => false
+    t.text     "comments",      :limit => 2147483647
     t.date     "commit_date"
     t.string   "scmid"
     t.integer  "user_id"
@@ -175,19 +175,6 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
 
   add_index "custom_values", ["custom_field_id"], :name => "index_custom_values_on_custom_field_id"
   add_index "custom_values", ["customized_type", "customized_id"], :name => "custom_values_customized"
-
-  create_table "daily_status_settings", :force => true do |t|
-    t.integer "project_id", :null => false
-  end
-
-  create_table "daily_statuses", :force => true do |t|
-    t.integer  "project_id",                       :null => false
-    t.text     "content"
-    t.boolean  "is_email_sent", :default => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-    t.integer  "author_id"
-  end
 
   create_table "departments", :force => true do |t|
     t.integer  "parent_id"
@@ -531,43 +518,19 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
   add_index "sprints", ["project_id"], :name => "sprints_project"
   add_index "sprints", ["user_id"], :name => "sprints_user"
 
-  create_table "systango_hrm_compoffs", :force => true do |t|
-    t.integer  "user_id"
-    t.decimal  "comp_off_given",   :precision => 10, :scale => 2, :default => 0.0
-    t.string   "comp_off_remarks"
-    t.datetime "created_at",                                                       :null => false
-    t.datetime "updated_at",                                                       :null => false
-  end
-
-  add_index "systango_hrm_compoffs", ["user_id"], :name => "index_systango_hrm_compoffs_on_user_id"
-
-  create_table "systango_hrm_leave_accounts", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "current_designation_id"
-    t.date     "date_of_joining"
-    t.boolean  "is_eligible_for_maternity_leave", :default => false
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
-  end
-
-  add_index "systango_hrm_leave_accounts", ["current_designation_id"], :name => "index_systango_hrm_leave_accounts_on_current_designation_id"
-  add_index "systango_hrm_leave_accounts", ["user_id"], :name => "index_systango_hrm_leave_accounts_on_user_id"
-
   create_table "time_entries", :force => true do |t|
-    t.integer  "project_id",        :null => false
-    t.integer  "user_id",           :null => false
+    t.integer  "project_id",  :null => false
+    t.integer  "user_id",     :null => false
     t.integer  "issue_id"
-    t.float    "hours",             :null => false
+    t.float    "hours",       :null => false
     t.string   "comments"
-    t.integer  "activity_id",       :null => false
-    t.date     "spent_on",          :null => false
-    t.integer  "tyear",             :null => false
-    t.integer  "tmonth",            :null => false
-    t.integer  "tweek",             :null => false
-    t.datetime "created_on",        :null => false
-    t.datetime "updated_on",        :null => false
-    t.integer  "order_id"
-    t.integer  "order_activity_id"
+    t.integer  "activity_id", :null => false
+    t.date     "spent_on",    :null => false
+    t.integer  "tyear",       :null => false
+    t.integer  "tmonth",      :null => false
+    t.integer  "tweek",       :null => false
+    t.datetime "created_on",  :null => false
+    t.datetime "updated_on",  :null => false
   end
 
   add_index "time_entries", ["activity_id"], :name => "index_time_entries_on_activity_id"
@@ -592,21 +555,6 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
     t.integer "position",                    :default => 1
     t.boolean "is_in_roadmap",               :default => true,  :null => false
     t.integer "fields_bits",                 :default => 0
-  end
-
-  create_table "ts_activities", :force => true do |t|
-    t.integer "order_id",      :null => false
-    t.integer "activity_id",   :null => false
-    t.string  "activity_name", :null => false
-  end
-
-  add_index "ts_activities", ["order_id"], :name => "index_ts_activities_on_order_id"
-
-  create_table "ts_permissions", :force => true do |t|
-    t.integer "order_id",                        :null => false
-    t.integer "access",       :default => 0,     :null => false
-    t.integer "principal_id", :default => 0,     :null => false
-    t.boolean "is_primary",   :default => false, :null => false
   end
 
   create_table "user_preferences", :force => true do |t|
@@ -651,7 +599,6 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
     t.text     "background"
     t.date     "appearance_date"
     t.integer  "department_id"
-    t.string   "apps",                             :default => "",    :null => false
   end
 
   add_index "users", ["auth_source_id"], :name => "index_users_on_auth_source_id"
@@ -668,8 +615,6 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
     t.string   "wiki_page_title"
     t.string   "status",          :default => "open"
     t.string   "sharing",         :default => "none", :null => false
-    t.boolean  "in_timesheet",    :default => false,  :null => false
-    t.boolean  "is_order",        :default => false,  :null => false
   end
 
   add_index "versions", ["project_id"], :name => "versions_project_id"
@@ -686,26 +631,26 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
   add_index "watchers", ["watchable_id", "watchable_type"], :name => "index_watchers_on_watchable_id_and_watchable_type"
 
   create_table "wiki_content_versions", :force => true do |t|
-    t.integer  "wiki_content_id",                              :null => false
-    t.integer  "page_id",                                      :null => false
+    t.integer  "wiki_content_id",                                       :null => false
+    t.integer  "page_id",                                               :null => false
     t.integer  "author_id"
-    t.binary   "data"
-    t.string   "compression",     :limit => 6, :default => ""
-    t.string   "comments",                     :default => ""
-    t.datetime "updated_on",                                   :null => false
-    t.integer  "version",                                      :null => false
+    t.binary   "data",            :limit => 2147483647
+    t.string   "compression",     :limit => 6,          :default => ""
+    t.string   "comments",                              :default => ""
+    t.datetime "updated_on",                                            :null => false
+    t.integer  "version",                                               :null => false
   end
 
   add_index "wiki_content_versions", ["updated_on"], :name => "index_wiki_content_versions_on_updated_on"
   add_index "wiki_content_versions", ["wiki_content_id"], :name => "wiki_content_versions_wcid"
 
   create_table "wiki_contents", :force => true do |t|
-    t.integer  "page_id",                    :null => false
+    t.integer  "page_id",                                          :null => false
     t.integer  "author_id"
-    t.text     "text"
-    t.string   "comments",   :default => ""
-    t.datetime "updated_on",                 :null => false
-    t.integer  "version",                    :null => false
+    t.text     "text",       :limit => 2147483647
+    t.string   "comments",                         :default => ""
+    t.datetime "updated_on",                                       :null => false
+    t.integer  "version",                                          :null => false
   end
 
   add_index "wiki_contents", ["author_id"], :name => "index_wiki_contents_on_author_id"

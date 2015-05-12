@@ -1,0 +1,360 @@
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Started GET "/" for 127.0.0.1 at 2015-01-09 15:06:17 +0530
+Processing by WelcomeController#index as HTML
+  Current user: anonymous
+  Rendered welcome/index.html.erb within layouts/base (232.4ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (1.6ms)
+Completed 200 OK in 930.7ms (Views: 452.2ms | ActiveRecord: 183.1ms)
+Started GET "/login" for 127.0.0.1 at 2015-01-09 15:06:21 +0530
+Processing by AccountController#login as HTML
+  Current user: anonymous
+  Rendered account/login.html.erb within layouts/base (10.1ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (1.2ms)
+Completed 200 OK in 68.3ms (Views: 51.8ms | ActiveRecord: 12.6ms)
+Started POST "/login" for 127.0.0.1 at 2015-01-09 15:08:22 +0530
+Processing by AccountController#login as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"gcL+teZhP7NHy9u1NUJ7ROk3nrB1WdpCpC6Iwrajd14=", "back_url"=>"http://localhost:3000/", "username"=>"bacancytechnology", "password"=>"[FILTERED]", "login"=>"Login »"}
+  Current user: anonymous
+Successful authentication for 'bacancytechnology' from 127.0.0.1 at 2015-01-09 09:38:22 UTC
+Redirected to http://localhost:3000/
+Completed 302 Found in 41.3ms (ActiveRecord: 33.1ms)
+Started GET "/" for 127.0.0.1 at 2015-01-09 15:08:22 +0530
+Processing by WelcomeController#index as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered welcome/index.html.erb within layouts/base (76.7ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.9ms)
+Completed 200 OK in 138.3ms (Views: 81.4ms | ActiveRecord: 48.8ms)
+Started GET "/admin" for 127.0.0.1 at 2015-01-09 15:33:52 +0530
+Processing by AdminController#index as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered admin/_menu.html.erb (7.0ms)
+  Rendered admin/index.html.erb within layouts/admin (17.2ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.7ms)
+  Rendered layouts/base.html.erb (16.2ms)
+Completed 200 OK in 90.5ms (Views: 80.6ms | ActiveRecord: 3.9ms)
+Started GET "/settings" for 127.0.0.1 at 2015-01-09 15:33:57 +0530
+Processing by SettingsController#index as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered settings/_general.html.erb (29.6ms)
+  Rendered settings/_display.html.erb (75.3ms)
+  Rendered settings/_authentication.html.erb (14.8ms)
+  Rendered settings/_projects.html.erb (38.1ms)
+  Rendered queries/_columns.html.erb (19.0ms)
+  Rendered settings/_issues.html.erb (102.7ms)
+  Rendered settings/_notifications.html.erb (26.4ms)
+  Rendered settings/_mail_handler.html.erb (9.3ms)
+  Rendered settings/_repositories.html.erb (635.9ms)
+  Rendered common/_tabs.html.erb (1074.9ms)
+  Rendered settings/edit.html.erb within layouts/admin (1093.5ms)
+  Rendered admin/_menu.html.erb (6.6ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.7ms)
+  Rendered layouts/base.html.erb (17.9ms)
+Completed 200 OK in 1151.3ms (Views: 1045.4ms | ActiveRecord: 100.6ms)
+Started GET "/apps" for 127.0.0.1 at 2015-01-09 15:36:56 +0530
+Processing by AppspaceController#index as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered plugins/redmine_app__space/app/views/appspace/applications.html.erb within layouts/base (2.6ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.8ms)
+Completed 200 OK in 34.9ms (Views: 26.0ms | ActiveRecord: 3.1ms)
+Started GET "/rdb/dashboards" for 127.0.0.1 at 2015-01-09 15:36:57 +0530
+Processing by RdbController#index as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered plugins/redmine_dashboard/app/views/rdb/index.html.slim within layouts/base (37.2ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.7ms)
+Completed 200 OK in 68.3ms (Views: 62.2ms | ActiveRecord: 2.7ms)
+Started GET "/plugin_assets/redmine_dashboard/main.min.css" for 127.0.0.1 at 2015-01-09 15:36:57 +0530
+
+ActionController::RoutingError (No route matches [GET] "/plugin_assets/redmine_dashboard/main.min.css"):
+  actionpack (3.2.19) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.19) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.19) lib/rails/rack/logger.rb:32:in `call_app'
+  railties (3.2.19) lib/rails/rack/logger.rb:16:in `block in call'
+  activesupport (3.2.19) lib/active_support/tagged_logging.rb:22:in `tagged'
+  railties (3.2.19) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.19) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.5) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.5) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.19) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.5) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.19) lib/action_dispatch/middleware/static.rb:63:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.19) lib/rails/engine.rb:484:in `call'
+  railties (3.2.19) lib/rails/application.rb:231:in `call'
+  rack (1.4.5) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.19) lib/rails/rack/log_tailer.rb:17:in `call'
+  rack (1.4.5) lib/rack/handler/webrick.rb:59:in `service'
+  /home/abhilash/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/abhilash/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/abhilash/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+Started GET "/plugin_assets/redmine_dashboard/main.min.js" for 127.0.0.1 at 2015-01-09 15:36:57 +0530
+
+ActionController::RoutingError (No route matches [GET] "/plugin_assets/redmine_dashboard/main.min.js"):
+  actionpack (3.2.19) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.19) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.19) lib/rails/rack/logger.rb:32:in `call_app'
+  railties (3.2.19) lib/rails/rack/logger.rb:16:in `block in call'
+  activesupport (3.2.19) lib/active_support/tagged_logging.rb:22:in `tagged'
+  railties (3.2.19) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.19) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.5) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.5) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.19) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.5) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.19) lib/action_dispatch/middleware/static.rb:63:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.19) lib/rails/engine.rb:484:in `call'
+  railties (3.2.19) lib/rails/application.rb:231:in `call'
+  rack (1.4.5) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.19) lib/rails/rack/log_tailer.rb:17:in `call'
+  rack (1.4.5) lib/rack/handler/webrick.rb:59:in `service'
+  /home/abhilash/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/abhilash/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/abhilash/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+Started GET "/admin" for 127.0.0.1 at 2015-01-09 15:37:00 +0530
+Processing by AdminController#index as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered admin/_menu.html.erb (4.9ms)
+  Rendered admin/index.html.erb within layouts/admin (5.6ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.7ms)
+  Rendered layouts/base.html.erb (18.0ms)
+Completed 200 OK in 30.5ms (Views: 22.0ms | ActiveRecord: 4.5ms)
+Started GET "/settings" for 127.0.0.1 at 2015-01-09 15:37:03 +0530
+Processing by SettingsController#index as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered settings/_general.html.erb (37.2ms)
+  Rendered settings/_display.html.erb (6.9ms)
+  Rendered settings/_authentication.html.erb (5.7ms)
+  Rendered settings/_projects.html.erb (11.0ms)
+  Rendered queries/_columns.html.erb (5.0ms)
+  Rendered settings/_issues.html.erb (10.9ms)
+  Rendered settings/_notifications.html.erb (0.2ms)
+  Rendered settings/_mail_handler.html.erb (5.4ms)
+  Rendered settings/_repositories.html.erb (14.0ms)
+  Rendered common/_tabs.html.erb (98.1ms)
+  Rendered settings/edit.html.erb within layouts/admin (98.6ms)
+  Rendered admin/_menu.html.erb (5.8ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.7ms)
+  Rendered layouts/base.html.erb (20.7ms)
+Completed 200 OK in 132.4ms (Views: 119.2ms | ActiveRecord: 9.0ms)
+Started GET "/admin/info" for 127.0.0.1 at 2015-01-09 15:37:07 +0530
+Processing by AdminController#info as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered admin/info.html.erb within layouts/admin (2.6ms)
+  Rendered admin/_menu.html.erb (5.5ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.8ms)
+  Rendered layouts/base.html.erb (21.1ms)
+Completed 200 OK in 141.7ms (Views: 45.3ms | ActiveRecord: 22.2ms)
+Started GET "/admin/plugins" for 127.0.0.1 at 2015-01-09 15:37:10 +0530
+Processing by AdminController#plugins as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered admin/plugins.html.erb within layouts/admin (7.2ms)
+  Rendered admin/_menu.html.erb (4.4ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.9ms)
+  Rendered layouts/base.html.erb (16.2ms)
+Completed 200 OK in 39.5ms (Views: 31.1ms | ActiveRecord: 3.8ms)
+Started GET "/" for 127.0.0.1 at 2015-01-09 15:59:12 +0530
+Processing by WelcomeController#index as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered welcome/index.html.erb within layouts/base (6.6ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.7ms)
+Completed 200 OK in 30.6ms (Views: 17.0ms | ActiveRecord: 6.1ms)
+Started GET "/" for 127.0.0.1 at 2015-01-09 15:59:29 +0530
+Processing by WelcomeController#index as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered welcome/index.html.erb within layouts/base (8.1ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.6ms)
+Completed 200 OK in 39.0ms (Views: 20.2ms | ActiveRecord: 8.6ms)
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Started GET "/projects" for 127.0.0.1 at 2015-01-12 16:21:56 +0530
+Processing by ProjectsController#index as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered mailer/test_email.text.erb within layouts/mailer (1.8ms)
+  Rendered mailer/test_email.html.erb within layouts/mailer (0.7ms)
+Completed 500 Internal Server Error in 4846.7ms
+
+SystemExit (exit):
+  app/controllers/projects_controller.rb:51:in `exit'
+  app/controllers/projects_controller.rb:51:in `index'
+
+
+Started GET "/admin" for 127.0.0.1 at 2015-01-12 16:22:33 +0530
+Processing by AdminController#index as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered admin/_menu.html.erb (16.1ms)
+  Rendered admin/index.html.erb within layouts/admin (68.9ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (2.3ms)
+  Rendered layouts/base.html.erb (106.6ms)
+Completed 200 OK in 260.4ms (Views: 208.6ms | ActiveRecord: 36.1ms)
+Started GET "/settings" for 127.0.0.1 at 2015-01-12 16:22:35 +0530
+Processing by SettingsController#index as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered settings/_general.html.erb (22.7ms)
+  Rendered settings/_display.html.erb (45.2ms)
+  Rendered settings/_authentication.html.erb (21.4ms)
+  Rendered settings/_projects.html.erb (65.4ms)
+  Rendered queries/_columns.html.erb (64.5ms)
+  Rendered settings/_issues.html.erb (147.6ms)
+  Rendered settings/_notifications.html.erb (10.6ms)
+  Rendered settings/_mail_handler.html.erb (7.6ms)
+  Rendered settings/_repositories.html.erb (820.4ms)
+  Rendered common/_tabs.html.erb (1284.3ms)
+  Rendered settings/edit.html.erb within layouts/admin (1303.0ms)
+  Rendered admin/_menu.html.erb (4.6ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (1.2ms)
+  Rendered layouts/base.html.erb (27.4ms)
+Completed 200 OK in 1366.7ms (Views: 1141.7ms | ActiveRecord: 217.4ms)
+Started POST "/settings/edit?tab=notifications" for 127.0.0.1 at 2015-01-12 16:22:48 +0530
+Processing by SettingsController#edit as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"hrw9a8sSjvsztReyJ7CeiDWeL5gLM3ct1xQcMdxpkkE=", "settings"=>{"mail_from"=>"redmine@example.net", "bcc_recipients"=>"1", "plain_text_mail"=>"0", "default_notification_option"=>"only_my_events", "notified_events"=>["", "issue_added", "issue_updated", "news_added", "news_comment_added", "document_added", "file_added", "message_posted", "wiki_content_added", "wiki_content_updated"], "emails_header"=>"", "emails_footer"=>"You have received this notification because you have either subscribed to it, or are involved in it.\r\nTo change your notification preferences, please click here: http://hostname/my/account"}, "commit"=>"Save", "tab"=>"notifications"}
+  Current user: bacancytechnology (id=1)
+Redirected to http://localhost:3000/settings?tab=notifications
+Completed 302 Found in 522.3ms (ActiveRecord: 428.1ms)
+Started GET "/settings?tab=notifications" for 127.0.0.1 at 2015-01-12 16:22:49 +0530
+Processing by SettingsController#index as HTML
+  Parameters: {"tab"=>"notifications"}
+Settings cache cleared.
+  Current user: bacancytechnology (id=1)
+  Rendered settings/_general.html.erb (27.2ms)
+  Rendered settings/_display.html.erb (51.7ms)
+  Rendered settings/_authentication.html.erb (34.1ms)
+  Rendered settings/_projects.html.erb (26.0ms)
+  Rendered queries/_columns.html.erb (4.7ms)
+  Rendered settings/_issues.html.erb (25.7ms)
+  Rendered settings/_notifications.html.erb (17.5ms)
+  Rendered settings/_mail_handler.html.erb (8.5ms)
+  Rendered settings/_repositories.html.erb (24.9ms)
+  Rendered common/_tabs.html.erb (226.9ms)
+  Rendered settings/edit.html.erb within layouts/admin (227.5ms)
+  Rendered admin/_menu.html.erb (4.3ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.7ms)
+  Rendered layouts/base.html.erb (20.6ms)
+Completed 200 OK in 262.2ms (Views: 197.5ms | ActiveRecord: 58.7ms)
+Started GET "/admin/test_email" for 127.0.0.1 at 2015-01-12 16:22:52 +0530
+Processing by AdminController#test_email as HTML
+  Current user: bacancytechnology (id=1)
+  Rendered mailer/test_email.text.erb within layouts/mailer (0.1ms)
+  Rendered mailer/test_email.html.erb within layouts/mailer (0.1ms)
+Redirected to http://localhost:3000/settings?tab=notifications
+Completed 302 Found in 4393.5ms (ActiveRecord: 1.6ms)
+Started GET "/settings?tab=notifications" for 127.0.0.1 at 2015-01-12 16:22:56 +0530
+Processing by SettingsController#index as HTML
+  Parameters: {"tab"=>"notifications"}
+  Current user: bacancytechnology (id=1)
+  Rendered settings/_general.html.erb (4.9ms)
+  Rendered settings/_display.html.erb (9.8ms)
+  Rendered settings/_authentication.html.erb (4.8ms)
+  Rendered settings/_projects.html.erb (9.0ms)
+  Rendered queries/_columns.html.erb (4.5ms)
+  Rendered settings/_issues.html.erb (9.0ms)
+  Rendered settings/_notifications.html.erb (5.8ms)
+  Rendered settings/_mail_handler.html.erb (2.1ms)
+  Rendered settings/_repositories.html.erb (11.7ms)
+  Rendered common/_tabs.html.erb (63.3ms)
+  Rendered settings/edit.html.erb within layouts/admin (63.8ms)
+  Rendered admin/_menu.html.erb (4.2ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.7ms)
+  Rendered layouts/base.html.erb (16.2ms)
+Completed 200 OK in 91.5ms (Views: 79.7ms | ActiveRecord: 7.5ms)
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Started GET "/admin/plugins" for 127.0.0.1 at 2015-04-03 19:23:29 +0530
+Processing by AdminController#plugins as HTML
+  Current user: bharat_soni (id=50)
+  Rendered admin/plugins.html.erb within layouts/admin (47.2ms)
+  Rendered admin/_menu.html.erb (11.6ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (1.4ms)
+  Rendered layouts/base.html.erb (109.6ms)
+Completed 200 OK in 261.0ms (Views: 186.6ms | ActiveRecord: 8.2ms)
+Started GET "/settings/plugin/redmine_app__space" for 127.0.0.1 at 2015-04-03 19:23:38 +0530
+Processing by SettingsController#plugin as HTML
+  Parameters: {"id"=>"redmine_app__space"}
+  Current user: bharat_soni (id=50)
+  Rendered plugins/redmine_app__space/app/views/appspace/_application_settings.html.erb (135.6ms)
+  Rendered settings/plugin.html.erb within layouts/admin (160.6ms)
+  Rendered admin/_menu.html.erb (4.1ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.7ms)
+  Rendered layouts/base.html.erb (16.3ms)
+Completed 200 OK in 212.3ms (Views: 206.7ms | ActiveRecord: 1.1ms)
+Started GET "/settings/plugin/redmine_app__space" for 127.0.0.1 at 2015-04-03 19:23:54 +0530
+Processing by SettingsController#plugin as HTML
+  Parameters: {"id"=>"redmine_app__space"}
+  Current user: bharat_soni (id=50)
+  Rendered plugins/redmine_app__space/app/views/appspace/_application_settings.html.erb (18.0ms)
+  Rendered settings/plugin.html.erb within layouts/admin (19.2ms)
+  Rendered admin/_menu.html.erb (3.9ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.7ms)
+  Rendered layouts/base.html.erb (14.3ms)
+Completed 200 OK in 41.6ms (Views: 38.3ms | ActiveRecord: 0.7ms)
+Started GET "/admin/plugins" for 127.0.0.1 at 2015-04-03 19:27:09 +0530
+Processing by AdminController#plugins as HTML
+  Current user: bharat_soni (id=50)
+  Rendered admin/plugins.html.erb within layouts/admin (5.9ms)
+  Rendered admin/_menu.html.erb (4.3ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (0.7ms)
+  Rendered layouts/base.html.erb (31.7ms)
+Completed 200 OK in 47.2ms (Views: 43.3ms | ActiveRecord: 0.6ms)
+Connecting to database specified by database.yml
+Creating scope :system. Overwriting existing method Enumeration.system.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Started GET "/admin/plugins" for 127.0.0.1 at 2015-04-03 19:43:03 +0530
+Processing by AdminController#plugins as HTML
+  Current user: bharat_soni (id=50)
+  Rendered admin/plugins.html.erb within layouts/admin (34.8ms)
+  Rendered admin/_menu.html.erb (9.2ms)
+  Rendered layouts/base.html.erb (82.9ms)
+Completed 200 OK in 221.3ms (Views: 132.8ms | ActiveRecord: 9.6ms)
+Started GET "/admin/plugins" for 127.0.0.1 at 2015-04-03 19:43:21 +0530
+Processing by AdminController#plugins as HTML
+  Current user: bharat_soni (id=50)
+  Rendered admin/plugins.html.erb within layouts/admin (0.2ms)
+  Rendered admin/_menu.html.erb (4.0ms)
+  Rendered layouts/base.html.erb (13.9ms)
+Completed 200 OK in 27.9ms (Views: 24.1ms | ActiveRecord: 0.6ms)
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Started GET "/admin/plugins" for 127.0.0.1 at 2015-04-03 19:43:33 +0530
+Processing by AdminController#plugins as HTML
+  Current user: bharat_soni (id=50)
+  Rendered admin/plugins.html.erb within layouts/admin (46.8ms)
+  Rendered admin/_menu.html.erb (12.1ms)
+  Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (1.2ms)
+  Rendered layouts/base.html.erb (102.9ms)
+Completed 200 OK in 255.1ms (Views: 180.6ms | ActiveRecord: 7.8ms)

@@ -13,10 +13,19 @@
 #  password: "postgres"
 
 development:
-  adapter: postgresql
-  database: redmine_development
+  adapter: mysql2
+  database: bacancyt_redmine
   pool: 5
   host: localhost
-  username: postgres
-  password: postgres
+  username: root
+  password: root
+  port: 5432
+  
+production:
+  adapter: mysql2
+  database: bacancyt_redmine
+  pool: 5
+  host: localhost
+  username: root
+  password: root
   port: 5432
