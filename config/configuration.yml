@@ -60,7 +60,6 @@ default:
         user_name: "message-noreply@bacancytechnology.com"
         password: "Bacancy123"
 
-  #
   # ==== Sendmail command
   #
   #  email_delivery:
