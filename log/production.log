@@ -358,3 +358,37 @@ Processing by AdminController#plugins as HTML
   Rendered plugins/scrum/app/views/scrum_hooks/_head.html.erb (1.2ms)
   Rendered layouts/base.html.erb (102.9ms)
 Completed 200 OK in 255.1ms (Views: 180.6ms | ActiveRecord: 7.8ms)
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Migrating to CreateIssueStatusOrders (1)
+Migrating to CreateAgileColors (2)
+Migrating to RenameIssueStatusOrders (3)
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.

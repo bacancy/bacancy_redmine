@@ -13,6 +13,23 @@
 
 ActiveRecord::Schema.define(:version => 20140920094058) do
 
+  create_table "agile_colors", :force => true do |t|
+    t.integer "container_id"
+    t.string  "container_type"
+    t.string  "color"
+  end
+
+  add_index "agile_colors", ["container_id"], :name => "index_agile_colors_on_container_id"
+  add_index "agile_colors", ["container_type"], :name => "index_agile_colors_on_container_type"
+
+  create_table "agile_ranks", :force => true do |t|
+    t.integer "issue_id"
+    t.integer "position"
+  end
+
+  add_index "agile_ranks", ["issue_id"], :name => "index_issue_status_orders_on_issue_id"
+  add_index "agile_ranks", ["position"], :name => "index_issue_status_orders_on_position"
+
   create_table "attachments", :force => true do |t|
     t.integer  "container_id"
     t.string   "container_type", :limit => 30
@@ -175,6 +192,19 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
 
   add_index "custom_values", ["custom_field_id"], :name => "index_custom_values_on_custom_field_id"
   add_index "custom_values", ["customized_type", "customized_id"], :name => "custom_values_customized"
+
+  create_table "daily_status_settings", :force => true do |t|
+    t.integer "project_id", :null => false
+  end
+
+  create_table "daily_statuses", :force => true do |t|
+    t.integer  "project_id",                       :null => false
+    t.text     "content"
+    t.boolean  "is_email_sent", :default => false
+    t.integer  "author_id"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
 
   create_table "departments", :force => true do |t|
     t.integer  "parent_id"
@@ -456,6 +486,40 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
 
   add_index "queries_roles", ["query_id", "role_id"], :name => "queries_roles_ids", :unique => true
 
+  create_table "rdb_columns", :force => true do |t|
+    t.integer  "dashboard_id", :null => false
+    t.string   "type",         :null => false
+    t.string   "name",         :null => false
+    t.string   "opts",         :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "rdb_dashboards", :force => true do |t|
+    t.string   "name",        :null => false
+    t.string   "type",        :null => false
+    t.text     "preferences", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "rdb_permissions", :force => true do |t|
+    t.integer  "dashboard_id",   :null => false
+    t.integer  "principal_id",   :null => false
+    t.string   "principal_type", :null => false
+    t.string   "role",           :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "rdb_sources", :force => true do |t|
+    t.integer  "dashboard_id", :null => false
+    t.integer  "context_id",   :null => false
+    t.string   "context_type", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "repositories", :force => true do |t|
     t.integer  "project_id",                  :default => 0,     :null => false
     t.string   "url",                         :default => "",    :null => false
@@ -519,18 +583,20 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
   add_index "sprints", ["user_id"], :name => "sprints_user"
 
   create_table "time_entries", :force => true do |t|
-    t.integer  "project_id",  :null => false
-    t.integer  "user_id",     :null => false
+    t.integer  "project_id",        :null => false
+    t.integer  "user_id",           :null => false
     t.integer  "issue_id"
-    t.float    "hours",       :null => false
+    t.float    "hours",             :null => false
     t.string   "comments"
-    t.integer  "activity_id", :null => false
-    t.date     "spent_on",    :null => false
-    t.integer  "tyear",       :null => false
-    t.integer  "tmonth",      :null => false
-    t.integer  "tweek",       :null => false
-    t.datetime "created_on",  :null => false
-    t.datetime "updated_on",  :null => false
+    t.integer  "activity_id",       :null => false
+    t.date     "spent_on",          :null => false
+    t.integer  "tyear",             :null => false
+    t.integer  "tmonth",            :null => false
+    t.integer  "tweek",             :null => false
+    t.datetime "created_on",        :null => false
+    t.datetime "updated_on",        :null => false
+    t.integer  "order_id"
+    t.integer  "order_activity_id"
   end
 
   add_index "time_entries", ["activity_id"], :name => "index_time_entries_on_activity_id"
@@ -556,6 +622,23 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
     t.boolean "is_in_roadmap",               :default => true,  :null => false
     t.integer "fields_bits",                 :default => 0
   end
+
+  create_table "ts_activities", :force => true do |t|
+    t.integer "order_id",      :null => false
+    t.integer "activity_id",   :null => false
+    t.string  "activity_name", :null => false
+  end
+
+  add_index "ts_activities", ["order_id"], :name => "index_ts_activities_on_order_id"
+
+  create_table "ts_permissions", :force => true do |t|
+    t.integer "order_id",                        :null => false
+    t.integer "access",       :default => 0,     :null => false
+    t.integer "principal_id", :default => 0,     :null => false
+    t.boolean "is_primary",   :default => false, :null => false
+  end
+
+  add_index "ts_permissions", ["order_id"], :name => "index_ts_permissions_on_user_id_and_order_id"
 
   create_table "user_preferences", :force => true do |t|
     t.integer "user_id",   :default => 0,     :null => false
@@ -585,6 +668,7 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
     t.string   "salt",               :limit => 64
     t.boolean  "must_change_passwd",               :default => false, :null => false
     t.datetime "passwd_changed_on"
+    t.string   "apps",                             :default => "",    :null => false
     t.string   "phone"
     t.string   "address"
     t.string   "skype"
@@ -615,6 +699,8 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
     t.string   "wiki_page_title"
     t.string   "status",          :default => "open"
     t.string   "sharing",         :default => "none", :null => false
+    t.boolean  "in_timesheet",    :default => false,  :null => false
+    t.boolean  "is_order",        :default => false,  :null => false
   end
 
   add_index "versions", ["project_id"], :name => "versions_project_id"
