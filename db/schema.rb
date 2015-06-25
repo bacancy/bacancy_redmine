@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140920094058) do
+ActiveRecord::Schema.define(:version => 20141029173025) do
 
   create_table "agile_colors", :force => true do |t|
     t.integer "container_id"
@@ -325,6 +325,7 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
   add_index "issues", ["category_id"], :name => "index_issues_on_category_id"
   add_index "issues", ["created_on"], :name => "index_issues_on_created_on"
   add_index "issues", ["fixed_version_id"], :name => "index_issues_on_fixed_version_id"
+  add_index "issues", ["parent_id"], :name => "index_issues_on_parent_id"
   add_index "issues", ["position"], :name => "issues_position"
   add_index "issues", ["priority_id"], :name => "index_issues_on_priority_id"
   add_index "issues", ["project_id"], :name => "issues_project_id"
@@ -474,6 +475,7 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
     t.string  "type"
     t.integer "visibility",    :default => 0
     t.text    "options"
+    t.integer "tt_query_type", :default => 0
   end
 
   add_index "queries", ["project_id"], :name => "index_queries_on_project_id"
@@ -582,6 +584,14 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
   add_index "sprints", ["project_id"], :name => "sprints_project"
   add_index "sprints", ["user_id"], :name => "sprints_user"
 
+  create_table "time_bookings", :force => true do |t|
+    t.integer  "time_log_id"
+    t.integer  "time_entry_id"
+    t.datetime "started_on"
+    t.datetime "stopped_at"
+    t.integer  "project_id"
+  end
+
   create_table "time_entries", :force => true do |t|
     t.integer  "project_id",        :null => false
     t.integer  "user_id",           :null => false
@@ -604,6 +614,33 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
   add_index "time_entries", ["issue_id"], :name => "time_entries_issue_id"
   add_index "time_entries", ["project_id"], :name => "time_entries_project_id"
   add_index "time_entries", ["user_id"], :name => "index_time_entries_on_user_id"
+
+  create_table "time_loggers", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "issue_id"
+    t.datetime "started_on"
+    t.float    "time_spent", :default => 0.0
+    t.boolean  "paused",     :default => false
+  end
+
+  create_table "time_logs", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "started_on"
+    t.datetime "stopped_at"
+    t.integer  "project_id"
+    t.string   "comments"
+    t.boolean  "bookable",   :default => true
+  end
+
+  create_table "time_trackers", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "started_on"
+    t.string   "comments"
+    t.integer  "project_id"
+    t.integer  "issue_id"
+    t.boolean  "round",       :default => false
+    t.integer  "activity_id"
+  end
 
   create_table "tokens", :force => true do |t|
     t.integer  "user_id",                  :default => 0,  :null => false
@@ -639,6 +676,12 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
   end
 
   add_index "ts_permissions", ["order_id"], :name => "index_ts_permissions_on_user_id_and_order_id"
+
+  create_table "user_issue_months", :force => true do |t|
+    t.integer "uid"
+    t.integer "issue"
+    t.integer "odr"
+  end
 
   create_table "user_preferences", :force => true do |t|
     t.integer "user_id",   :default => 0,     :null => false
@@ -788,5 +831,48 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
   add_index "workflows", ["old_status_id"], :name => "index_workflows_on_old_status_id"
   add_index "workflows", ["role_id", "tracker_id", "old_status_id"], :name => "wkfs_role_tracker_old_status"
   add_index "workflows", ["role_id"], :name => "index_workflows_on_role_id"
+
+  create_table "worktimelogs", :force => true do |t|
+    t.integer  "issue_id"
+    t.integer  "user_id"
+    t.datetime "started"
+    t.datetime "finished"
+    t.integer  "total"
+    t.integer  "flag"
+  end
+
+  create_table "wt_daily_memos", :force => true do |t|
+    t.date     "day"
+    t.integer  "user_id"
+    t.datetime "created_on"
+    t.datetime "updated_on"
+    t.text     "description"
+  end
+
+  create_table "wt_holidays", :force => true do |t|
+    t.date     "holiday"
+    t.datetime "created_on"
+    t.integer  "created_by"
+    t.datetime "deleted_on"
+    t.integer  "deleted_by"
+  end
+
+  create_table "wt_member_orders", :force => true do |t|
+    t.integer "user_id"
+    t.integer "position"
+    t.integer "prj_id"
+  end
+
+  create_table "wt_project_orders", :force => true do |t|
+    t.integer "uid"
+    t.integer "dsp_prj"
+    t.integer "dsp_pos"
+  end
+
+  create_table "wt_ticket_relays", :force => true do |t|
+    t.integer "issue_id"
+    t.integer "position"
+    t.integer "parent"
+  end
 
 end
