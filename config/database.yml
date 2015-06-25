@@ -14,18 +14,18 @@
 
 development:
   adapter: mysql2
-  database: bacancyt_redmine
+  database: bacancyt_redmine_latest
   pool: 5
   host: localhost
   username: root
   password: root
   port: 5432
   
-production:
-  adapter: mysql2
-  database: bacancyt_redmine
-  pool: 5
-  host: localhost
-  username: root
-  password: root
-  port: 5432
+#production:
+#  adapter: mysql2
+#  database: bacancyt_redmine
+#  pool: 5
+#  host: localhost
+#  username: root
+#  password: root
+#  port: 5432
