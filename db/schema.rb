@@ -789,4 +789,13 @@ ActiveRecord::Schema.define(:version => 20140920094058) do
   add_index "workflows", ["role_id", "tracker_id", "old_status_id"], :name => "wkfs_role_tracker_old_status"
   add_index "workflows", ["role_id"], :name => "index_workflows_on_role_id"
 
+  create_table "worktimelogs", :force => true do |t|
+    t.integer  "issue_id"
+    t.integer  "user_id"
+    t.datetime "started"
+    t.datetime "finished"
+    t.integer  "total"
+    t.integer  "flag"
+  end
+
 end

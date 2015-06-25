@@ -392,3 +392,98 @@ Creating scope :sorted. Overwriting existing method Group.sorted.
 Creating scope :sorted. Overwriting existing method User.sorted.
 Starting Timesheets Application
 Creating scope :system. Overwriting existing method Enumeration.system.
+Connecting to database specified by database.yml
+Creating scope :system. Overwriting existing method Enumeration.system.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Connecting to database specified by database.yml
+Creating scope :system. Overwriting existing method Enumeration.system.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Connecting to database specified by database.yml
+Creating scope :system. Overwriting existing method Enumeration.system.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Migrating to CreateWorktimelogs (1)
+Connecting to database specified by database.yml
+Creating scope :system. Overwriting existing method Enumeration.system.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Connecting to database specified by database.yml
+Creating scope :system. Overwriting existing method Enumeration.system.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Connecting to database specified by database.yml
+Creating scope :system. Overwriting existing method Enumeration.system.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Connecting to database specified by database.yml
+Creating scope :sorted. Overwriting existing method User.sorted.
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :system. Overwriting existing method Enumeration.system.
+Connecting to database specified by database.yml
+Creating scope :sorted. Overwriting existing method User.sorted.
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :system. Overwriting existing method Enumeration.system.
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Creating scope :system. Overwriting existing method Enumeration.system.
+Migrating to CreateApplications (1)
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Migrating to VersionInTimesheet (1)
+Migrating to TimeEntriesInTimesheet (2)
+Migrating to TimeEntriesVersion (3)
+Migrating to Activities (4)
+Migrating to RevertTimeEntriesInTimesheet (5)
+Migrating to RemoveInTimesheet (6)
+Migrating to DisjointActivity (7)
+Migrating to TsPermissions (8)
+Migrating to TsToPrincipal (9)
+Migrating to TsPermIsPrimary (10)
+Migrating to TsRemoveIssues (11)
+Migrating to VersionIsOrder (12)
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Migrating to CreateDailyStatuses (2)
+Migrating to CreateProjectDailyStatusSettings (3)
+Migrating to AddAuthorIdToDailyStatuses (4)
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Migrating to CreateRdbDashboards (1)
+Migrating to CreateRdbSources (2)
+Migrating to CreateRdbPermissions (3)
+Migrating to CreateRdbColumns (4)
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Connecting to database specified by database.yml
+Starting Application Space plugin for Redmine
+Creating scope :sorted. Overwriting existing method Group.sorted.
+Creating scope :sorted. Overwriting existing method User.sorted.
+Starting Timesheets Application
+Creating scope :system. Overwriting existing method Enumeration.system.
+Migrating to CreateApplications (1)
