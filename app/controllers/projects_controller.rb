@@ -55,10 +55,11 @@ class ProjectsController < ApplicationController
           scope = scope.active
         end
         unless params[:priority]
-        @projects = scope.visible.order('lft').all
+          @projects = scope.visible.order('lft').all
         else
           @projects = Project.get_project_based_on_priority(params[:priority])
-        end  
+        end
+        #redirect_to :back if params[:priority]  
       }
       format.api  {
         @offset, @limit = api_offset_and_limit
