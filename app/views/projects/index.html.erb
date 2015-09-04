@@ -34,6 +34,7 @@
   <th><%=l(:label_project)%></th>
   <!--th><%#=l(:field_is_public)%></th-->
   <th>Priority</th>
+  <th>Technologies</th>
   <th><%=l(:field_created_on)%></th>
   <!--th></th-->
   </tr></thead>
@@ -42,6 +43,9 @@
   <tr class="<%= cycle("odd", "even") %> <%= project.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
   <td class="name"><span><%= link_to_project(project, {}, :title => project.short_description) %></span></td>
   <td><%= project.custom_field_value(CustomField.find(6)) %></td>
+  <% type = project.custom_field_value(CustomField.find(3)) %>
+  <% technolgies = type.compact %>
+  <td><%= technolgies.join(", ") %></td>
   <!--td><%#= checked_image project.is_public? %></td-->
   <td><%= format_date(project.created_on) %></td>
   <!--td class="buttons">
