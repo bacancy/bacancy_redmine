@@ -146,6 +146,31 @@ class Project < ActiveRecord::Base
   def self.latest(user=nil, count=5)
     visible(user).limit(count).order("created_on DESC").all
   end
+  
+  def self.high_priority
+    self.includes(:custom_values).where("custom_values.value = 'High'").active
+  end
+  
+  def self.medium_priority
+    self.includes(:custom_values).where("custom_values.value = 'Medium'").active
+  end
+  
+  def self.low_priority
+    self.includes(:custom_values).where("custom_values.value = 'Low'").active
+  end
+  
+  def self.get_project_based_on_priority priority
+    case priority
+    when "High"
+      self.high_priority
+    when "Medium"
+      self.medium_priority
+    when "Low"
+      self.low_priority
+    else
+      self.high_priority
+    end
+  end  
 
   # Returns true if the project is visible to +user+ or to the current user.
   def visible?(user=User.current)

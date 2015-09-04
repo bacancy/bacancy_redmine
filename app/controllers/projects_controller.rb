@@ -54,7 +54,11 @@ class ProjectsController < ApplicationController
         unless params[:closed]
           scope = scope.active
         end
+        unless params[:priority]
         @projects = scope.visible.order('lft').all
+        else
+          @projects = Project.get_project_based_on_priority(params[:priority])
+        end  
       }
       format.api  {
         @offset, @limit = api_offset_and_limit
