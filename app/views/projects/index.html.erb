@@ -11,11 +11,13 @@
 <%= form_tag({}, :method => :get) do %>
 <fieldset><legend><%= l(:label_filter_plural) %></legend>
 <label for='status'><%= l(:field_status) %> :</label>
-
-<%= select_tag 'priority', options_for_select(["High", "Medium", "Low"], params.has_key?(:priority) ? params[:priority] : ""), :prompt => "Select Priority", :class => "small", :onchange => "this.form.submit(); return false;"  %>
+<%= select_tag 'priority', options_for_select(["High", "Medium", "Low"], params.has_key?(:priority) ? params[:priority] : ""), :prompt => "Select Priority", :class => "small", :onchange => ""  %>
+<label for='type'><strong>OR</strong></label>
+<label for='type'>Type :</label>
+<%= select_tag 'type', options_for_select(["Hourly", "Fix"], params.has_key?(:type) ? params[:type] : ""), :prompt => "Select Type", :class => "small", :onchange => ""  %>
 <!--label for='name'><%#= l(:label_project) %>:</label-->
 <%#= text_field_tag 'name', params[:name], :size => 30 %>
-<%#= submit_tag l(:button_apply), :class => "small", :name => nil %>
+<%= submit_tag l(:button_apply), :class => "small", :name => nil %>
 <%= link_to l(:button_clear), {:controller => 'projects', :action => 'index'}, :class => 'icon icon-reload' %>
 </fieldset>
 <% end %>
@@ -34,6 +36,7 @@
   <th><%=l(:label_project)%></th>
   <!--th><%#=l(:field_is_public)%></th-->
   <th>Priority</th>
+  <th>Type</th>
   <th>Technologies</th>
   <th>Developers</th>
   <th><%=l(:field_created_on)%></th>
@@ -43,8 +46,10 @@
 <% project_tree(@projects) do |project, level| %>
   <tr class="<%= cycle("odd", "even") %> <%= project.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
   <td class="name"><span><%= link_to_project(project, {}, :title => project.short_description) %></span></td>
-  <td><%= project.custom_field_value(CustomField.find(6)) %></td>
-  <% type = Project.find(project).custom_field_value(CustomField.find(3)) %>
+  <% view_project = Project.find(project)%>
+  <td><%= view_project.custom_field_value(CustomField.find(6)) %></td>
+  <td><%= view_project.custom_field_value(CustomField.find(5)) %></td>
+  <% type = view_project.custom_field_value(CustomField.find(3)) %>
   <% technolgies = type.compact %>
   <td><%= technolgies.join(", ") %></td>
   <td><%= project.developers %></td>

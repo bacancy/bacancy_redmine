@@ -147,32 +147,21 @@ class Project < ActiveRecord::Base
     visible(user).limit(count).order("created_on DESC").all
   end
   
-  def self.high_priority
-    self.includes(:custom_values).where("custom_values.value = 'High'").active
-  end
   
-  def self.medium_priority
-    self.includes(:custom_values).where("custom_values.value = 'Medium'").active
-  end
-  
-  def self.low_priority
-    self.includes(:custom_values).where("custom_values.value = 'Low'").active
-  end
   
   def developers
     member_principals.includes(:member_roles, :roles, :principal).where("member_roles.role_id = 4").map(&:principal).map(&:name).join(", ")
   end  
   
-  def self.get_project_based_on_priority priority
-    case priority
-    when "High"
-      self.high_priority
-    when "Medium"
-      self.medium_priority
-    when "Low"
-      self.low_priority
+  def self.get_project_based_on_priority_and_type priority, type
+    if !priority.eql?("") && !type.eql?("")
+      self.includes(:custom_values).where("custom_values.value = ? OR custom_values.value = ?", priority, type).active
+    elsif !priority.eql?("") && type.eql?("")
+      self.includes(:custom_values).where("custom_values.value = ?", priority).active
+    elsif priority.eql?("") && !type.eql?("")
+      self.includes(:custom_values).where("custom_values.value = ?", type).active
     else
-      self.high_priority
+      self.includes(:custom_values).where("custom_values.value = 'High' OR custom_values.value = 'Hourly'").active  
     end
   end  
 
