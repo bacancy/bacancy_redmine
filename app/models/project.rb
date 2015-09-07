@@ -159,6 +159,10 @@ class Project < ActiveRecord::Base
     self.includes(:custom_values).where("custom_values.value = 'Low'").active
   end
   
+  def developers
+    member_principals.includes(:member_roles, :roles, :principal).where("member_roles.role_id = 4").map(&:principal).map(&:name).join(", ")
+  end  
+  
   def self.get_project_based_on_priority priority
     case priority
     when "High"

@@ -35,6 +35,7 @@
   <!--th><%#=l(:field_is_public)%></th-->
   <th>Priority</th>
   <th>Technologies</th>
+  <th>Developers</th>
   <th><%=l(:field_created_on)%></th>
   <!--th></th-->
   </tr></thead>
@@ -46,6 +47,7 @@
   <% type = Project.find(project).custom_field_value(CustomField.find(3)) %>
   <% technolgies = type.compact %>
   <td><%= technolgies.join(", ") %></td>
+  <td><%= project.developers %></td>
   <!--td><%#= checked_image project.is_public? %></td-->
   <td><%= format_date(project.created_on) %></td>
   <!--td class="buttons">
