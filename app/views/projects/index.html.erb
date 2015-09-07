@@ -7,7 +7,6 @@
 </div>
 
 <h2><%= l(:label_project_plural) %></h2>
-
 <%= form_tag({}, :method => :get) do %>
 <fieldset><legend><%= l(:label_filter_plural) %></legend>
 <label for='status'><%= l(:field_status) %> :</label>
@@ -15,6 +14,11 @@
 <label for='type'><strong>OR</strong></label>
 <label for='type'>Type :</label>
 <%= select_tag 'type', options_for_select(["Hourly", "Fix"], params.has_key?(:type) ? params[:type] : ""), :prompt => "Select Type", :class => "small", :onchange => ""  %>
+
+<label for='technology'><strong>OR</strong></label>
+<label for='technology'>Technology :</label>
+<%= select_tag 'technology', options_for_select(["IPhone", "Android", "API", "PHP", ".NET", "Ruby on Rails", "AngularJS", "Digital Marketing"], params.has_key?(:technology) ? params[:technology] : ""), :prompt => "Select Technology", :class => "small", :onchange => ""  %>
+
 <!--label for='name'><%#= l(:label_project) %>:</label-->
 <%#= text_field_tag 'name', params[:name], :size => 30 %>
 <%= submit_tag l(:button_apply), :class => "small", :name => nil %>

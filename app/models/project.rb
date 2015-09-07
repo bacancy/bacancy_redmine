@@ -153,15 +153,23 @@ class Project < ActiveRecord::Base
     member_principals.includes(:member_roles, :roles, :principal).where("member_roles.role_id = 4").map(&:principal).map(&:name).join(", ")
   end  
   
-  def self.get_project_based_on_priority_and_type priority, type
-    if !priority.eql?("") && !type.eql?("")
+  def self.get_project_based_on_priority_and_type priority, type, technology
+    if !priority.eql?("") && !type.eql?("") && !technology.eql?("")
+      self.includes(:custom_values).where("custom_values.value = ? OR custom_values.value = ? OR custom_values.value = ?", priority, type, technology).active
+    elsif !priority.eql?("") && !type.eql?("") && technology.eql?("")
       self.includes(:custom_values).where("custom_values.value = ? OR custom_values.value = ?", priority, type).active
-    elsif !priority.eql?("") && type.eql?("")
+    elsif priority.eql?("") && !type.eql?("") && !technology.eql?("")
+      self.includes(:custom_values).where("custom_values.value = ? OR custom_values.value = ?", type, priority).active  
+    elsif !priority.eql?("") && type.eql?("") && !technology.eql?("")
+      self.includes(:custom_values).where("custom_values.value = ? OR custom_values.value = ?", priority, technology).active  
+    elsif !priority.eql?("") && type.eql?("") && technology.eql?("")
       self.includes(:custom_values).where("custom_values.value = ?", priority).active
-    elsif priority.eql?("") && !type.eql?("")
+    elsif priority.eql?("") && !type.eql?("") && technology.eql?("")
       self.includes(:custom_values).where("custom_values.value = ?", type).active
+    elsif priority.eql?("") && type.eql?("") && !technology.eql?("")
+      self.includes(:custom_values).where("custom_values.value = ?", technology).active  
     else
-      self.includes(:custom_values).where("custom_values.value = 'High' OR custom_values.value = 'Hourly'").active  
+      self.active.visible.order('lft').all  
     end
   end  
 

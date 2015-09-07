@@ -54,10 +54,10 @@ class ProjectsController < ApplicationController
         unless params[:closed]
           scope = scope.active
         end
-        unless params[:priority] || params[:type]
+        unless params[:priority] || params[:type] || params[:technology]
           @projects = scope.visible.order('lft').all
         else
-          @projects = Project.get_project_based_on_priority_and_type(params[:priority], params[:type])
+          @projects = Project.get_project_based_on_priority_and_type(params[:priority], params[:type], params[:technology])
         end
         #redirect_to :back if params[:priority]  
       }
