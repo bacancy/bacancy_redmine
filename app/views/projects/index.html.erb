@@ -44,6 +44,7 @@
   <th>Technologies</th>
   <th>Developers</th>
   <th><%=l(:field_created_on)%></th>
+  <th></th>
   <!--th></th-->
   </tr></thead>
   <tbody>
@@ -58,7 +59,15 @@
   <td><%= technolgies.join(", ") %></td>
   <td><%= project.developers %></td>
   <!--td><%#= checked_image project.is_public? %></td-->
-  <td><%= format_date(project.created_on) %></td>
+  <td><%= format_date(project.created_on) %>
+  <td>
+  	<% if User.current.admin?%>
+  		<a href="javascript:void(0);" onclick='$("#milestone_<%= project.id%>").slideToggle("slow");'>Show Milestone</a>
+  	<%else%>
+  	  No Action
+  	<%end%>
+  </td>
+  </td>
   <!--td class="buttons">
     <%#= link_to(l(:button_archive), { :controller => 'projects', :action => 'archive', :id => project, :status => params[:status] }, :data => {:confirm => l(:text_are_you_sure)}, :method => :post, :class => 'icon icon-lock') unless project.archived? %>
     <%#= link_to(l(:button_unarchive), { :controller => 'projects', :action => 'unarchive', :id => project, :status => params[:status] }, :method => :post, :class => 'icon icon-unlock') if project.archived? && (project.parent.nil? || !project.parent.archived?) %>
@@ -66,6 +75,40 @@
     <%#= link_to(l(:button_delete), project_path(project), :method => :delete, :class => 'icon icon-del') %>
   </td-->
   </tr>
+  <% if User.current.admin?%>
+	  <tr>
+		  <td colspan="7">	
+			<div id="milestone_<%= project.id%>" style="display: none;">
+			<% if project.milestones.any? %>
+				<table class="list">
+				  <thead>
+				    <th><%= l(:label_milestone) %></th>
+				    <th><%= l(:field_effective_date) %></th>
+				    <th><%= l(:field_description) %></th>
+				    <th><%= l(:label_version_plural) %></th>
+				    <th style="width:15%"></th>
+				    <th style="width:15%"></th>
+				  </thead>
+				  <tbody>
+				  <% for milestone in project.milestones.sort %>
+				    <tr class="<%= cycle 'odd', 'even' %>">
+				      <td><%= link_to h(milestone.name), :controller => :milestones, :action => :show, :id => milestone.id %></td>
+				      <td align="center"><%= format_date(milestone.effective_date) %></td>
+				      <td><%=h milestone.description %></td>
+				      <td align="center"><%= milestone.versions.sort { |a, b| a.name.downcase <=> b.name.downcase }.collect {|v| link_to(h(v.name), :controller => :versions, :action => :show, :id => v) }.join(", ").html_safe %></td>
+				      <td align="center"><%= link_to_if_authorized l(:button_edit), { :controller => :milestones, :action => :edit, :id => milestone.id }, :class => 'icon icon-edit' %></td>
+				      <td align="center"><%= link_to_if_authorized l(:button_delete), {:controller => :milestones, :action => :destroy, :id => milestone.id }, :confirm => l(:text_are_you_sure), :method => :delete, :class => 'icon icon-del' %></td>
+				    </tr>
+				  <% end; reset_cycle %>
+				  </tbody>
+				</table>
+			<% else %>
+				<p class="nodata"><%= l(:label_no_data) %></p>
+			<% end %>
+			</div>
+			</td>
+	  </tr>	
+	<%end%>
 <% end %>
   </tbody>
 </table>
