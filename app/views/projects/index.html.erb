@@ -46,7 +46,9 @@
 					<th>Type</th>
 					<th>Technologies</th>
 					<th>Developers</th>
-					<th><%= l(:field_created_on)%></th>
+					<!--th><%#= l(:field_created_on)%></th-->
+					<th>Start Date</th>
+					<th>End Date</th>
 					<th></th>
 					<!--th></th-->
 				</tr>
@@ -63,7 +65,11 @@
 					<td><%= technolgies.join(", ") %></td>
 					<td><%= project.developers %></td>
 					<!--td><%#= checked_image project.is_public? %></td-->
-					<td><%= format_date(project.created_on) %></td>
+					<% start_date = view_project.custom_field_value(CustomField.find(7)) %>
+					<% end_date = view_project.custom_field_value(CustomField.find(8)) %>
+					<td><%= start_date.nil? ? "" : start_date.to_date.strftime("%d/%m/%Y") %></td>
+					<td><%= end_date.nil? ? "" : end_date.to_date.strftime("%d/%m/%Y") %></td>
+					<!--td><%#= format_date(project.created_on) %></td-->
 					<td><a href="javascript:void(0);" onclick='$("#milestone_<%= project.id%>").slideToggle("slow");'>Milestone</a></td>
 					</td>
 					<!--td class="buttons">
