@@ -311,6 +311,14 @@ class Mailer < ActionMailer::Base
     mail :to => user.mail,
       :subject => 'Redmine test'
   end
+  
+  def milestone_close_reminder(milestone)
+    #set_language_if_valid(user.language)
+    @milestone = milestone
+    @project = milestone.project
+    milestone.project.members.includes(:user).each{ |user| mail :to => user.mail, :subject => "Milestone Alert - #{@project.name}" }
+    User.where("admin = true").each{ |admin| mail :to => admin.mail, :subject => "Milestone Alert - #{@project.name}" }
+  end
 
   # Sends reminders to issue assignees
   # Available options:
