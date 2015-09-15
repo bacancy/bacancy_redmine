@@ -70,7 +70,7 @@
 					<td><%= start_date.nil? ? "" : start_date.to_date.strftime("%d/%m/%Y") %></td>
 					<td><%= end_date.nil? ? "" : end_date.to_date.strftime("%d/%m/%Y") %></td>
 					<!--td><%#= format_date(project.created_on) %></td-->
-					<td><a href="javascript:void(0);" onclick='$("#milestone_<%= project.id%>").slideToggle("slow");'>Milestone</a></td>
+					<td><a href="javascript:void(0);" onclick='$("#sprint_<%= project.id%>").slideToggle("slow");'>Sprint</a></td>
 					</td>
 					<!--td class="buttons">
 					<%#= link_to(l(:button_archive), { :controller => 'projects', :action => 'archive', :id => project, :status => params[:status] }, :data => {:confirm => l(:text_are_you_sure)}, :method => :post, :class => 'icon icon-lock') unless project.archived? %>
@@ -80,36 +80,45 @@
 					</td-->
 				</tr>
 				<tr>
-					<td colspan="7">
-					<div id="milestone_<%= project.id%>" style="display: none;">
-						<% if project.milestones.any? %>
-						<table class="list">
-							<thead>
-								<th><%= l(:label_milestone) %></th>
-								<th><%= l(:field_effective_date) %></th>
-								<th><%= l(:field_description) %></th>
-								<th><%= l(:label_version_plural) %></th>
-								<th style="width:15%"></th>
-								<th style="width:15%"></th>
-							</thead>
-							<tbody>
-								<% for milestone in project.milestones.sort %>
-								<tr class="<%= cycle 'odd', 'even' %>">
-									<td><%= link_to h(milestone.name), :controller => :milestones, :action => :show, :id => milestone.id %></td>
-									<td align="center"><%= format_date(milestone.effective_date) %></td>
-									<td><%= h milestone.description %></td>
-									<td align="center"><%= milestone.versions.sort { |a, b| a.name.downcase <=> b.name.downcase }.collect {|v| link_to(h(v.name), :controller => :versions, :action => :show, :id => v) }.join(", ").html_safe %></td>
-									<td align="center"><%= link_to_if_authorized l(:button_edit), { :controller => :milestones, :action => :edit, :id => milestone.id }, :class => 'icon icon-edit' %></td>
-									<td align="center"><%= link_to_if_authorized l(:button_delete), {:controller => :milestones, :action => :destroy, :id => milestone.id }, :confirm => l(:text_are_you_sure), :method => :delete, :class => 'icon icon-del' %></td>
-								</tr>
-								<% end; reset_cycle %>
-							</tbody>
-						</table>
-						<% else %>
+					<td colspan="8">
+					<div id="sprint_<%= project.id%>" style="display: none;">
+						<%- if project.sprints_and_product_backlog.empty? -%>
 						<p class="nodata">
 							<%= l(:label_no_data) %>
 						</p>
-						<% end %>
+						<%- else -%>
+						<table class="list">
+							<thead>
+								<tr>
+									<th><%= l(:field_name) %></th>
+									<th><%= l(:field_start_date) %></th>
+									<th><%= l(:field_end_date) %></th>
+                  <th>Feature</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for sprint in project.sprints_and_product_backlog %>
+								<tr class="<%= cycle 'odd', 'even' %>">
+									<td><%= link_to(h(sprint.name), sprint.is_product_backlog ? project_product_backlog_index_path(project) : sprint) %></td>
+									<td align="center"><%= format_date(sprint.start_date) %></td>
+									<td align="center"><%= format_date(sprint.end_date) %></td>
+									<% feature = sprint.issues.where(:tracker_id => 2).first %>
+									<td align="center"><%= feature.nil? ? "" : feature.subject%></td>
+									<td align="center">
+									<%if sprint.start_date > Date.current %>
+									Not Started
+									<% elsif sprint.start_date <= Date.current && sprint.end_date >= Date.current  %>
+									In Progress
+									<% else %>
+									Completed
+									<% end %>
+									</td>
+								</tr>
+								<% end; reset_cycle %>
+							<tbody>
+						</table>
+						<%- end -%>
 					</div></td>
 				</tr>
 				<%end%>

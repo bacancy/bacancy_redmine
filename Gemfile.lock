@@ -226,3 +226,6 @@ DEPENDENCIES
   transifex-ruby-fork-jg (= 0.1.0)
   vcard (~> 0.2.8)
   yard
+
+BUNDLED WITH
+   1.10.3
