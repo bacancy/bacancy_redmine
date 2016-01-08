@@ -8,6 +8,9 @@ gem "builder", ">= 3.0.4"
 gem "request_store", "1.0.5"
 gem "mime-types"
 gem "rbpdf", "~> 1.18.1"
+gem 'test-unit'
+gem 'roo'
+gem 'roo-xls'
 
 # Optional gem for LDAP authentication
 group :ldap do

@@ -266,4 +266,5 @@ class ProjectsController < ApplicationController
     end
     true
   end
+
 end

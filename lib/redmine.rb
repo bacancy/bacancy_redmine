@@ -225,6 +225,7 @@ Redmine::MenuManager.map :admin_menu do |menu|
   menu.push :ldap_authentication, {:controller => 'auth_sources', :action => 'index'},
             :html => {:class => 'server_authentication'}
   menu.push :plugins, {:controller => 'admin', :action => 'plugins'}, :last => true
+  menu.push :import_data, {:controller => 'import_data', :action => 'new'}, :caption => :label_project_cost
   menu.push :info, {:controller => 'admin', :action => 'info'}, :caption => :label_information_plural, :last => true
 end
 

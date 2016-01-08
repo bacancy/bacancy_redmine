@@ -59,6 +59,7 @@ class ApplicationController < ActionController::Base
   helper Redmine::MenuManager::MenuHelper
 
   def session_expiration
+
     if session[:user_id]
       if session_expired? && !try_to_autologin
         set_localization(User.active.find_by_id(session[:user_id]))

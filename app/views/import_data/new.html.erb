@@ -1,0 +1,33 @@
+<%= javascript_include_tag 'jquery.validate.min.js' %>
+<%= javascript_include_tag 'jquery.validator-additional-methods.min.js' %>
+
+<%= form_for :import_data, :url => {:action => "create"}, :html => { :id => "import_data" } do |f| %> 
+  <label for="selectProject">Select Project : </label>
+  <%= f.select :project_id, @projects %> <br>
+
+   <label for="selectMonthYear">Select Month and Year for which you are  uploading file : </label> 
+  <%= f.date_select :upload_for,  { :discard_day => true} %> <br>
+
+ <label for="exampleInputEmail1">Choose Excel-Sheet : </label>
+  <%= f.file_field :file ,:id => "excel",:class => "file_field file",:placeholder => "Choose Excel-Sheet : "  %> <br>   
+  <%= f.submit %>        
+<% end %>
+
+<%= javascript_tag do %>
+$(document).ready(function(){
+ $("#import_data").validate({
+    rules: {
+      "import_data[file]": {
+        required: true,
+        extension: "xls|xlsx"
+      }
+    },
+    messages: {
+      "import_data[file]": {  
+        required: "Please select a file.",
+        extension: "Please upload file with extension .xls or .xlsx only."
+      } 
+    }           
+  });
+});
+<% end %>

@@ -21,6 +21,8 @@ class Member < ActiveRecord::Base
   has_many :member_roles, :dependent => :destroy
   has_many :roles, :through => :member_roles
   belongs_to :project
+  has_many :time_entries
+  has_many :import_data
 
   validates_presence_of :principal, :project
   validates_uniqueness_of :user_id, :scope => :project_id

@@ -325,6 +325,7 @@ module ApplicationHelper
         selected = nil
       end
       selected ||= tabs.first[:name]
+      
       render :partial => 'common/tabs', :locals => {:tabs => tabs, :selected_tab => selected}
     else
       content_tag 'p', l(:label_no_data), :class => "nodata"

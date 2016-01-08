@@ -1109,3 +1109,8 @@ en:
   description_date_from: Enter start date
   description_date_to: Enter end date
   text_repository_identifier_info: 'Only lower case letters (a-z), numbers, dashes and underscores are allowed.<br />Once saved, the identifier cannot be changed.'
+  label_project_cost: Project Costing
+  excel_file_extension_error: Invalid file. Please upload file with .xls or .xlsx only..!
+  excel_no_file_choose_error: Please choose file and try again..!
+  excel_file_import_sucess: File imported successfully..!
+  excel_file_recorde_save_error: Some records were not imported sucessfully..!
