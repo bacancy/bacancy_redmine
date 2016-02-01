@@ -1201,6 +1201,30 @@ module ApplicationHelper
     end
   end
 
+  def issue_time_selector(field_id)
+    include_time_selector_tags()
+    javascript_tag("$(function() { $('.#{field_id}').appendDtpicker(timepickerOptions); });")
+  end
+
+  def include_time_selector_tags()
+    tags = javascript_include_tag("jquery.simple-dtpicker")
+    content_for :header_tags do        
+        tags << javascript_tag("var timepickerOptions={minuteInterval: 10, closeOnSelected: true, dateFormat: 'YYYY-MM-DD hh:mm'};")
+    end
+  end
+
+  def issue_date_selector(field_id)
+    include_date_selector_tags()
+    javascript_tag("$(function() { $('.#{field_id}').appendDtpicker(date_pickerOptions); });")
+  end
+
+  def include_date_selector_tags()
+    tags = javascript_include_tag("jquery.simple-dtpicker")
+    content_for :header_tags do   
+        tags << javascript_tag("var date_pickerOptions={closeOnSelected: true, dateFormat: 'YYYY-MM-DD', dateOnly: true};")
+     end
+  end
+
   # Overrides Rails' stylesheet_link_tag with themes and plugins support.
   # Examples:
   #   stylesheet_link_tag('styles') # => picks styles.css from the current theme or defaults

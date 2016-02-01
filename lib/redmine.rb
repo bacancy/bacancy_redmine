@@ -211,6 +211,9 @@ end
 
 Redmine::MenuManager.map :admin_menu do |menu|
   menu.push :projects, {:controller => 'admin', :action => 'projects'}, :caption => :label_project_plural
+  menu.push :import_data, {:controller => 'import_data', :action => 'new'}, :html => {:class => 'upload_excel_sheet'}, :caption => :label_upload_excel_sheet,  :if => Proc.new { User.current.admin? }
+  menu.push :project_costs, {:controller => 'project_costs', :action => 'index'}, :html => {:class => 'project_costing'}, :caption => :label_project_cost,  :if => Proc.new { User.current.admin? }
+  menu.push :daily_status, {:controller => 'daily_status_report', :action => 'index'}, :html => {:class => 'daily_status_report'}, :caption => :label_daily_status_report,  :if => Proc.new { User.current.admin? }
   menu.push :users, {:controller => 'users'}, :caption => :label_user_plural
   menu.push :groups, {:controller => 'groups'}, :caption => :label_group_plural
   menu.push :roles, {:controller => 'roles'}, :caption => :label_role_and_permissions
@@ -225,7 +228,6 @@ Redmine::MenuManager.map :admin_menu do |menu|
   menu.push :ldap_authentication, {:controller => 'auth_sources', :action => 'index'},
             :html => {:class => 'server_authentication'}
   menu.push :plugins, {:controller => 'admin', :action => 'plugins'}, :last => true
-  menu.push :import_data, {:controller => 'import_data', :action => 'new'}, :caption => :label_project_cost
   menu.push :info, {:controller => 'admin', :action => 'info'}, :caption => :label_information_plural, :last => true
 end
 

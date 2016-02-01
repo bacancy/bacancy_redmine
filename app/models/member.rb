@@ -120,6 +120,24 @@ class Member < ActiveRecord::Base
     member
   end
 
+  def self.is_scrum_master?(user_id, project_id)
+    member_data = Member.where(:user_id => user_id).where(:project_id => project_id).pluck(:id)
+    if !member_data.empty? 
+      role_data = MemberRole.where(:member_id => member_data).pluck(:role_id) 
+      if !role_data.empty? && role_data[0] == 3
+        return true
+      else
+        return false
+      end
+    else 
+      return false  
+    end
+  end
+
+  def self.get_member_details_by_project_id(project_id)
+    return Member.where(:project_id => project_id) 
+  end
+
   protected
 
   def validate_role

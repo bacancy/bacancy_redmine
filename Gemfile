@@ -11,6 +11,8 @@ gem "rbpdf", "~> 1.18.1"
 gem 'test-unit'
 gem 'roo'
 gem 'roo-xls'
+gem 'aescrypt'
+gem 'whenever', require: false
 
 # Optional gem for LDAP authentication
 group :ldap do
