@@ -1,0 +1,154 @@
+<%= javascript_include_tag 'select2.full.min.js' %>
+<%= stylesheet_link_tag 'select2.min.css' %>
+<div>
+  <%= form_for :project_cost, :url => get_project_path, method: :get, :html => { :id => "import_data" } do |f| %> 
+    
+    <fieldset>    
+      <legend>
+        <%= l(:label_filter_plural) %>
+      </legend>
+      <div class="costing_filter_div_one">
+        <label for="selectProject">Project<span class="required"> *</span> : </label>
+          <% if defined? @project_data %> 
+            <%= f.select :project_id, @projects, :selected => @project_data.id %> 
+          <% else %>
+            <%= f.select :project_id, @projects %> 
+          <% end %>       
+      </div>
+      <div class="costing_filter_div_two"> 
+        <label id="select_developer"> </label>
+      </div> 
+      <div>
+        <label for="selectMonthYear">Filter by time : </label> 
+        <%= f.check_box :time_filter %> 
+        <%= f.date_select :filter_for, { :order => [:month, :year], :prompt => { :month => 'Select month',:year => 'Select year' }} %>    
+      </div> 
+      <div style="margin-top:5px" align="center"><%= f.submit "Show Costing" %></div>
+    <% end %>   
+  </fieldset>   
+</div>
+<div style="margin-top:5px">
+  <% if defined? @project_data %>
+  <% if !@month_hash_data.empty? %>
+    <h3 align="center">Costing for project : <%= @project_data.name %></h3>
+    <% project_total_hours = 0.00
+      project_total_cost = 0.00
+      role_name_hash = {"developer" => "Developer", "scrum_master" => "Scrum Master", "designer" => "Designer", "tester" => "Tester", "other" => "Other"}   
+    %>
+
+    <% @month_hash_data.each do |key, val| %>                   
+      <div>    
+        <div>Month : <%= key.to_date.strftime('%b, %Y') %> </div>
+        <div>
+          <table class="list">
+            <thead>
+              <tr>
+                <th>Resource</th>
+                <th>Hours</th>
+                <th>Cost</th>
+              </tr>
+            </thead>
+             <tbody>
+              <%  monthly_total_hours = 0.00
+                  monthly_total_cost = 0.00 %>
+              <% val.each do |k|  %>
+                 <tr>                
+                 <% k.each do |k1, v1| %>
+                  <td><%= role_name_hash[k1] %></td>
+                  <%   
+                        hours = 0.00
+                        cost = 0.00 
+                        v1.each do |v1|
+                          hours = hours + v1[0]
+                          cost = cost + v1[1] * v1[0]            
+                        end
+                        monthly_total_hours = monthly_total_hours + hours
+                        monthly_total_cost = monthly_total_cost + cost 
+                      %>
+                  <td><%= hours.round(2) %></td>
+                  <td><%= cost.round(2) %></td>
+                 <% end %>                    
+                 </tr>                
+            <% end %>  
+            <tr>
+              <td><b>Total</b></td>
+              <% project_total_hours = project_total_hours + monthly_total_hours %>
+              <% project_total_cost = project_total_cost + monthly_total_cost %>
+              <td><%= monthly_total_hours.round(2) %></td>
+              <td><%= monthly_total_cost.round(2) %></td>
+            </tr>
+          </tbody>           
+          </table> 
+        </div>
+    </div>     
+    <% end %>
+    <h3 align="center"> Total Hours : <%= project_total_hours.round(2) %></h3>
+    <h3 align="center"> Total Cost : <%= project_total_cost.round(2) %></h3>
+    <h3></h3>
+    <% else %>
+      <h3 align="center">No Record Found </h3>
+    <% end %>
+  <% end %>
+</div>
+<%= javascript_tag do %>
+$(document).ready(function(){   
+  $('#project_cost_project_id').change(function(event){
+    $.ajax({
+        url: "/fetch_developer_list",
+        type: "POST",
+        data: { id: $(event.target).val() },
+        success: function(result) {           
+        }
+      });    
+  });
+  $('#project_cost_project_id').trigger('change');
+  check_time_filter();  
+  test = getUrlVars();
+  year_id = test[test[7]];
+  month_id = test[test[6]];
+ 
+
+  if(year_id != "" && month_id != "" && typeof year_id != 'undefined' && typeof month_id != 'undefined' && month_id <= 12 ){
+    $('#project_cost_time_filter').prop('checked', true);
+    check_time_filter();
+    $("#project_cost_filter_for_1i option[value="+year_id+"]").attr('selected','selected'); 
+    $("#project_cost_filter_for_2i option[value="+month_id+"]").attr('selected','selected'); 
+  }
+
+  $("#project_cost_time_filter").change(function(){
+    check_time_filter();       
+  });
+
+   $('#project_cost_project_id').select2({
+    placeholder: "Select a project", 
+  });
+});
+
+// Show / Hide Time selection fields
+function check_time_filter() { 
+    if($("#project_cost_time_filter").prop('checked') == true){
+      $("#project_cost_filter_for_1i").show();
+      $("#project_cost_filter_for_2i").show();
+    } else {
+        $("#project_cost_filter_for_1i").val($("#project_cost_filter_for_1i option:first").val());
+      $("#project_cost_filter_for_2i").val($("#project_cost_filter_for_2i option:first").val());
+      $("#project_cost_filter_for_1i").hide();
+      $("#project_cost_filter_for_2i").hide();
+    }    
+   }
+
+// Read a page's GET URL variables and return them as an associative array.
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = decodeURIComponent(window.location.href).slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+<% end %>

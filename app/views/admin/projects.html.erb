@@ -33,7 +33,8 @@
     <%= link_to(l(:button_archive), { :controller => 'projects', :action => 'archive', :id => project, :status => params[:status] }, :data => {:confirm => l(:text_are_you_sure)}, :method => :post, :class => 'icon icon-lock') unless project.archived? %>
     <%= link_to(l(:button_unarchive), { :controller => 'projects', :action => 'unarchive', :id => project, :status => params[:status] }, :method => :post, :class => 'icon icon-unlock') if project.archived? && (project.parent.nil? || !project.parent.archived?) %>
     <%= link_to(l(:button_copy), { :controller => 'projects', :action => 'copy', :id => project }, :class => 'icon icon-copy') %>
-    <%= link_to(l(:button_delete), project_path(project), :method => :delete, :class => 'icon icon-del') %>
+    <%= link_to(l(:button_delete), project_path(project), :method => :delete, :class => 'icon icon-del') %>    
+    <%= link_to(l(:button_show_cost), get_project_path('project_cost[project_id]' => project.id), :class => 'icon icon-stats') %>    
   </td>
   </tr>
 <% end %>

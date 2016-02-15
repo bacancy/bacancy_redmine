@@ -1,0 +1,158 @@
+<%= javascript_include_tag 'select2.full.min.js' %>
+<%= stylesheet_link_tag 'select2.min.css' %>
+<div>
+
+  <%= form_for :daily_status, :url => daily_status_path, method: :get, :html => { :id => "daily_status_report" } do |f| %>    
+    <fieldset>    
+      <legend>
+        <%= l(:label_filter_plural) %>
+      </legend>
+        <div>
+          <div class="filter_div_one">
+            <label for="selectDeveloper">Developer<span class="required"> *</span> : </label>
+            <% if defined?  @developer_id %> 
+              <%= f.select :developer_id, @user_list, :selected => @developer_id %> 
+            <% else %>
+              <%= f.select :developer_id, @user_list %> 
+            <% end %> 
+          </div>
+          <div class="filter_div_two">
+            <%= f.label :report_type, "Type :" %>
+            <% if @report_type == 'D' && !@report_type.nil? %>
+              <%= f.radio_button :report_type, "M"%> <%= f.label :multiple_classes, "Monthly" %>
+              <%= f.radio_button :report_type, "D", :checked => 'checked' %> <%= f.label :multiple_classes, "Daily"%>
+            <% else %>
+              <%= f.radio_button :report_type, "M", :checked => 'checked' %> <%= f.label :multiple_classes, "Monthly" %>
+              <%= f.radio_button :report_type, "D" %> <%= f.label :multiple_classes, "Daily"%>
+            <% end %>            
+          </div>
+          <div class="filter_div_three">
+            <label for="selectDeveloper">Select <label id="selection_type">Month</label><span class="required"> *</span> : </label>
+            <%= f.date_select :filter_for, { :order => [:day, :month, :year], :default => {:year => @date_data.year, :month => @date_data.month, :day => @date_data.day}} %>
+          </div>                 
+          <div align="center" style="margin-top: -30px;"><%= f.submit "Show Report" %></div>
+        </div>         
+    </fieldset> 
+  <% end %>     
+</div>
+<div style="margin-top:5px">
+  <% if !@status_data.empty? %>
+    <div>       
+      <div>
+      <% if @report_type == "M" %>
+        <% monthly_hours = 0.0 %>
+         <% @status_data.each do |key1, val1| %>  
+          <h3 style="margin-top:20px;margin-bottom:0px;"><%= key1.to_date.strftime('%d, %B %Y') %></h3>         
+          <table class="list">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Issue</th>
+                <th>Subject</th>
+                <th>Status</th>
+                <th>Hours</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% total_hours = 0.0 %>
+              <% val1.each do |val2| %>          
+                <% val2.each do |tmp| %>
+                  <% sub_total = 0.0 %>
+                  <% tmp.each do |key3,val3| %>
+                   <tr>
+                   <td colspan="5" class="daily_status_table_project_row"> <%= key3 %> </td>
+                   </tr>
+                    <% val3.each do |tmp1|%>
+                      <tr>
+                        <td></td>
+                        <td><%= tmp1[2] %></td>
+                        <td><%= tmp1[0] %></td>
+                        <td><%= tmp1[1] %></td>
+                        <% hours = tmp1[3]/3600.00 %>
+                        <% sub_total = sub_total + hours %>
+                        <% total_hours = total_hours + hours %>
+                        <% monthly_hours = monthly_hours + total_hours %>
+                        <td><%= hours.round(2) %></td>
+                      </tr>
+                    <% end %> 
+                    <tr>
+                      <td colspan="4" style="text-align:right;">Sub Total</td>
+                      <td><%= sub_total.round(2) %></td>
+                    </tr>           
+                  <% end%>               
+                <% end %>             
+              <% end %>
+              <tr>
+                <td colspan="4" style="text-align:right;"><b>Grand Total</b></td>
+                <td><b><%= total_hours.round(2) %></b></td>
+              </tr>
+          </tbody> 
+          </table>
+         <% end %>
+         <h3 align="center">Monthly Total Hours :  <%= monthly_hours.round(2) %> </h3> 
+      <% else %>
+          <table class="list">
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Issue</th>
+              <th>Subject</th>
+              <th>Status</th>
+              <th>Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% total_hours = 0.0 %>
+            <% @status_data.each do |key, val| %>                   
+              <tr>
+                <td colspan="5" class="daily_status_table_project_row"><%= key %></td>
+              </tr>
+              <% val.each do |tmp|%>
+                <tr>
+                  <td></td>
+                  <td><%= tmp[2] %></td>
+                  <td><%= tmp[0] %></td>
+                  <td><%= tmp[1] %></td>
+                  <% hours = tmp[3]/3600.00 %>
+                  <% total_hours = total_hours + hours %>
+                  <td><%= hours.round(2) %></td>
+              <tr>
+              <% end %>                
+            <% end %>  
+            <tr>
+              <td colspan="4" style="text-align:right;"><b>TOTAL</b></td>
+              <td><%= total_hours.round(2) %></td>
+            </tr>         
+          </tbody>           
+          </table>          
+      <% end %>         
+      </div>
+    </div>       
+    <% else %>
+      <h3 align="center">No Record Found </h3>
+    <% end %>  
+</div>
+<%= javascript_tag do %>
+$(document).ready(function(){      
+   $('input[type=radio][name="daily_status[report_type]"]').change(function() {
+        if (this.value == 'M') {
+            $("#daily_status_filter_for_3i").hide();
+             $("#selection_type").text("Month"); 
+        }
+        else {
+            $("#daily_status_filter_for_3i").show();
+             $("#selection_type").text("Day");
+        }
+    });  
+    if ($('input[type=radio][name="daily_status[report_type]"]:checked').val() == "D") {
+            $("#daily_status_filter_for_3i").show(); 
+            $("#selection_type").text("Day");
+      } else {
+            $("#daily_status_filter_for_3i").hide(); 
+            $("#selection_type").text("Month");
+      }
+  $('#daily_status_developer_id').select2({
+    placeholder: "Select a developer", 
+  }); 
+});
+<% end %>

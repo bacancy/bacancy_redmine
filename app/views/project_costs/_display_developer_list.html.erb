@@ -1,0 +1,11 @@
+ <label for="selectDeveloper">Select Developer<span class="required"> *</span> : </label>
+<select style="width:200px;" name="project_cost[member_id]" id="selectDeveloper">
+  <% if @developer_data.size > 0 %>
+    <option value="00" selected="selected">All</option>
+    <% @developer_data.each do |developer| %>         
+        <option value="<%= developer[2] %>" data="<%= developer[1] %>"><%= developer[0] %></option>   
+    <% end %>    
+  <% else %>
+    <option>No Developer Found</option>
+  <% end %>
+</select>

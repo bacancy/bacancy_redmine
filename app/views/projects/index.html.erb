@@ -82,7 +82,7 @@
 				<tr>
 					<td colspan="8">
 					<div id="sprint_<%= project.id%>" style="display: none;">
-						<%- if project.sprints_and_product_backlog.empty? -%>
+						<% if project.sprints_and_product_backlog.empty? %>
 						<p class="nodata">
 							<%= l(:label_no_data) %>
 						</p>

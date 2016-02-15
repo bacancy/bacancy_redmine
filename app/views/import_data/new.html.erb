@@ -5,11 +5,11 @@
   <label for="selectProject">Select Project : </label>
   <%= f.select :project_id, @projects %> <br>
 
-   <label for="selectMonthYear">Select Month and Year for which you are  uploading file : </label> 
+ <label for="selectMonthYear">Select Month and Year for which you are  uploading file : </label> 
   <%= f.date_select :upload_for,  { :discard_day => true} %> <br>
 
  <label for="exampleInputEmail1">Choose Excel-Sheet : </label>
-  <%= f.file_field :file ,:id => "excel",:class => "file_field file",:placeholder => "Choose Excel-Sheet : "  %> <br>   
+  <%= f.file_field :file ,:id => "excel",:class => "file_field file",:placeholder => "Choose Excel-Sheet : "  %> <br>    
   <%= f.submit %>        
 <% end %>
 

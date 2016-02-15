@@ -1,0 +1,5 @@
+$("#select_developer").html('<%= escape_javascript(render :partial => "display_developer_list" )%>');
+$("#select_developer").show()
+test = getUrlVars();
+member_id = test[test[2]];
+$("#selectDeveloper option[value="+member_id+"]").attr('selected','selected'); 

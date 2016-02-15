@@ -33,7 +33,6 @@ class Project < ActiveRecord::Base
   has_many :member_principals, :class_name => 'Member',
                                :include => :principal,
                                :conditions => "#{Principal.table_name}.status=#{Principal::STATUS_ACTIVE}"
-
   has_many :enabled_modules, :dependent => :delete_all
   has_and_belongs_to_many :trackers, :order => "#{Tracker.table_name}.position"
   has_many :issues, :dependent => :destroy, :include => [:status, :tracker]
@@ -147,12 +146,14 @@ class Project < ActiveRecord::Base
   def self.latest(user=nil, count=5)
     visible(user).limit(count).order("created_on DESC").all
   end
-  
-  
-  
+    
   def developers
     member_principals.includes(:member_roles, :roles, :principal).where("member_roles.role_id = 4").map(&:principal).map(&:name).join(", ")
-  end  
+  end
+
+  def scrum_masters
+    member_principals.includes(:member_roles, :roles, :principal).where("member_roles.role_id = 3").map(&:principal).map(&:mail)
+  end 
   
   def self.get_project_based_on_priority_and_type priority, type, technology
     if !priority.eql?("") && !type.eql?("") && !technology.eql?("")

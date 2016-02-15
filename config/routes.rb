@@ -20,6 +20,10 @@ RedmineApp::Application.routes.draw do
 
   #Import Data Route
   resources :import_data
+  get "get_project", :to => "project_costs#index"
+  get "project_cost", :to => "project_costs#display"
+  get "daily_status", :to => "daily_status_report#index"
+  post "fetch_developer_list", :to => "project_costs#fetch_developer_list"
   
   match 'login', :to => 'account#login', :as => 'signin', :via => [:get, :post]
   match 'logout', :to => 'account#logout', :as => 'signout', :via => [:get, :post]
